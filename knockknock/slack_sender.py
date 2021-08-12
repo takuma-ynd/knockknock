@@ -57,7 +57,8 @@ def slack_sender(webhook_url: str, channel: str, user_mentions: List[str] = []):
                 contents.append(' '.join(user_mentions))
                 dump['text'] = '\n'.join(contents)
                 dump['icon_emoji'] = ':clapper:'
-                requests.post(webhook_url, json.dumps(dump))
+                if webhook_url:
+                    requests.post(webhook_url, json.dumps(dump))
 
             try:
                 value = func(*args, **kwargs)
@@ -81,7 +82,8 @@ def slack_sender(webhook_url: str, channel: str, user_mentions: List[str] = []):
                     contents.append(' '.join(user_mentions))
                     dump['text'] = '\n'.join(contents)
                     dump['icon_emoji'] = ':tada:'
-                    requests.post(webhook_url, json.dumps(dump))
+                    if webhook_url:
+                        requests.post(webhook_url, json.dumps(dump))
 
                 return value
 
@@ -101,7 +103,8 @@ def slack_sender(webhook_url: str, channel: str, user_mentions: List[str] = []):
                 contents.append(' '.join(user_mentions))
                 dump['text'] = '\n'.join(contents)
                 dump['icon_emoji'] = ':skull_and_crossbones:'
-                requests.post(webhook_url, json.dumps(dump))
+                if webhook_url:
+                    requests.post(webhook_url, json.dumps(dump))
                 raise ex
 
         return wrapper_sender
